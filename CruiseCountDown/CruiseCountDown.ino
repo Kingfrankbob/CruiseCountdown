@@ -24,7 +24,6 @@ void setup() {
   strip.setBrightness(BRIGHTNESS);
   setBinaryCounter();
   displayStrip();
-  Serial.begin(9600);
 }
 
 void loop() {
@@ -43,9 +42,10 @@ void loop() {
 void setBinaryCounter() {
   DateTime now = rtc.now();
   DateTime targetDate = DateTime(2024, 5, 19, 0, 0, 0);
+  
   int daysUntilTarget = (targetDate - now).days();
-
   int index = 0;
+  
   while (daysUntilTarget > 0 && index < 8) {
     if (daysUntilTarget % 2 == 1) {
       binaryCounter[index] = 1;
@@ -74,6 +74,7 @@ void displayStrip()
     }
     lightCounter++;
     everyOther++;
+    
     if (everyOther % 20 == 0)
     {
       lightCounter--;
@@ -88,6 +89,7 @@ void displayStrip()
       strip.setPixelColor(reversedIndex, 255, 255, 255);
     }
   }
+  
   strip.show();
   firstPixelHue += 300;
 }
